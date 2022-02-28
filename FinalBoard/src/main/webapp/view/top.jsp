@@ -20,7 +20,7 @@
 <body>
 	<div class="memberDiv">
 		Login
-		<a href="joinForm.do">Join</a>
+		<a href="joinForm.me">Join</a>
 	</div>
 	<div class="titleDiv">
 		<h1>B O A R D</h1>

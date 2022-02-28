@@ -17,7 +17,7 @@ public class BoardServiceImpl implements BoardService{
 	
 	@Override
 	public List<BoardDTO> selectBoardList() {
-		List<BoardDTO> list = sqlSession.selectList("selectBoardList");
+		List<BoardDTO> list = sqlSession.selectList("boardMapper.selectBoardList");
 		sqlSession.commit();
 		return list;
 	}

@@ -11,16 +11,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dto.BoardDTO;
+import dto.MemberDTO;
 import service.BoardServiceImpl;
+import service.MemberServiceImpl;
 
-@WebServlet("*.bo")
-public class BoardController extends HttpServlet {
+@WebServlet("*.me")
+public class MemberController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private BoardServiceImpl boardService = new BoardServiceImpl();
+	private MemberServiceImpl memberService = new MemberServiceImpl();
 	
 	
 	
-    public BoardController() {
+    public MemberController() {
         super();
     }
 
@@ -51,34 +53,33 @@ public class BoardController extends HttpServlet {
 		boolean isRedirect = false;
 		
 		//게시글 목록 페이지로 이동
-		if(command.equals("/boardList.bo")) {
+		if(command.equals("/joinForm.me")) {
 			
-			List<BoardDTO> list = boardService.selectBoardList();
-			request.setAttribute("boardList", list);
-			contentPage = "board_list";
+			contentPage = "join_form";
 		}
-		//글쓰기 페이지로 이동
-		else if(command.equals("/regBoardForm.bo")) {
-			contentPage = "board_write";
-		}
-		//글 등록
-		else if(command.equals("/regBoard.bo")) {
-			String title = request.getParameter("title");
-			String content = request.getParameter("content");
-			String writer = request.getParameter("writer");
+		else if(command.equals("/join.me")) {
+			String memId = request.getParameter("memId");
+			String memPw = request.getParameter("memPw");
+			String memName = request.getParameter("memName");
+			int memAge = Integer.parseInt(request.getParameter("memAge"));
+			String gender = request.getParameter("gender");
 			
-			BoardDTO boardDTO = new BoardDTO();
-			boardDTO.setTitle(title);
-			boardDTO.setContent(content);
-			boardDTO.setWriter(writer);
+			MemberDTO memberDTO = new MemberDTO();
+			memberDTO.setMemId(memId);
+			memberDTO.setMemPw(memPw);
+			memberDTO.setMemName(memName);
+			memberDTO.setMemAge(memAge);
+			memberDTO.setGender(gender);
 			
-			boardService.insertBoard(boardDTO);
+			memberService.insertMember(memberDTO);
 			
-			isRedirect = true;
-			path = "boardList.bo";
+			
+			path = "view/join_result.jsp";
 			
 		}
-		
+		else if(command.equals("/loginForm.me")) {
+			contentPage = "login";
+		}
 		
 		
 		request.setAttribute("contentPage", contentPage);
