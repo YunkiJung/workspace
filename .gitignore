@@ -20,3 +20,9 @@ local.properties
 .loadpath
 
 .recommenders
+
+Servers
+
+.classpath
+.project
+MANIFEST.MF

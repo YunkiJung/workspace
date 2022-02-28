@@ -48,6 +48,8 @@ public class BoardController extends HttpServlet {
 		
 		String contentPage = "";
 		
+		boolean isRedirect = false;
+		
 		//게시글 목록 페이지로 이동
 		if(command.equals("/boardList.bo")) {
 			
@@ -72,16 +74,26 @@ public class BoardController extends HttpServlet {
 			
 			boardService.insertBoard(boardDTO);
 			
+			isRedirect = true;
 			path = "boardList.bo";
 			
+		}
+		else if(command.equals("/joinForm.do")) {
+			path = "join_form";
 		}
 		
 		
 		request.setAttribute("contentPage", contentPage);
 		
 		//페이지 이동
-		RequestDispatcher dispatcher = request.getRequestDispatcher(path);
-		dispatcher.forward(request, response);
+		if(isRedirect) {
+			response.sendRedirect(path);
+		}
+		else {
+			RequestDispatcher dispatcher = request.getRequestDispatcher(path);
+			dispatcher.forward(request, response);
+		}
+		
 	}
 }
 
